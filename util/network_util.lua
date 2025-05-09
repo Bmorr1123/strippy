@@ -9,7 +9,8 @@ local protocol = "strippy"
 
 -------------------------------------------------------- Partnering Functions ---
 
-local function find_host(my_job, position)
+local function find_host(my_job, position, timeout)
+    timeout = timeout or 10
     print("Looking for "..protocol.." Hosts!")
     local computers = {rednet.lookup(protocol)}
     print("\tFound "..tostring(#computers).." potential hosts!")
@@ -23,13 +24,18 @@ local function find_host(my_job, position)
         print("Pinging "..computer)
         rednet.send(computer, textutils.serialize(my_data), protocol)
         
-        local id, response = rednet.receive(protocol, 10)
+        local id, response = rednet.receive(protocol, timeout)
         if id == computer and response == "true" then
             print("Found Host!")
             return computer
         else
             print("Denied: ")
-            print(response)
+            response = textutils.unserialize(response)
+            if type(response) == "table" and response["job"] and response["pos"] then
+                print("\tHost is not actually a host!")
+            else 
+                print(response)
+            end 
         end
     end
     print("Could not find Host!")
@@ -95,10 +101,19 @@ local function find_partners(job)
         print("Cannot pair as job nil!")
         return nil
     end
-    os.sleep(math.random())
+    local wait = math.random() * 3
+    os.sleep(wait)
     local position = vector.new(gps.locate())
 
     local host = find_host(job, position)
+    local attempts = math.random(1, 5)
+    while not host and attempts > 0 do
+        print(string.format("No host found, waiting %.2f seconds before trying again", wait))
+        os.sleep(wait)
+        host = find_host(job, position, wait)
+        attempts = attempts - 1
+    end
+
     if host then
         return wait_for_partners(host)
     end
