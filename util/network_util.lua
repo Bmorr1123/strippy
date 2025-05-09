@@ -95,7 +95,7 @@ local function find_partners(job)
         print("Cannot pair as job nil!")
         return nil
     end
-
+    os.sleep(math.random())
     local position = vector.new(gps.locate())
 
     local host = find_host(job, position)
