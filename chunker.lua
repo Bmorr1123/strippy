@@ -6,7 +6,7 @@ movement = require("util/movement_util")
 
 local function main()
 
-    local connection_info = net.find_partners("miner")
+    local connection_info = net.find_partners("chunker")
     peripheral.find("modem", rednet.open)  -- Incase it closed somehow.
 
     local chunker = connection_info.chunker
