@@ -80,10 +80,10 @@ local function start_host(my_job, position)
     partners.protocol = new_protocol
 
     print("Found All Partners!")
-    print(textutils.serialize(partners))
-    sleep(15)
     for job, partner in pairs(partners) do
-        rednet.send(partner, textutils.serialize(partners), protocol)
+        if job ~= "protocol" then
+            rednet.send(partner, textutils.serialize(partners), protocol)
+        end
     end
 
     return partners
