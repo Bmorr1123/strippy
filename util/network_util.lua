@@ -81,7 +81,7 @@ local function start_host(my_job, position)
 
     print("Found All Partners!")
     print(textutils.serialize(partners))
-    os.sleep(5)
+    sleep(15)
     for job, partner in pairs(partners) do
         rednet.send(partner, textutils.serialize(partners), protocol)
     end
@@ -105,14 +105,14 @@ local function find_partners(job)
         return nil
     end
     local wait = math.random() * 3
-    os.sleep(wait)
+    sleep(wait)
     local position = vector.new(gps.locate())
 
     local host = find_host(job, position)
     local attempts = math.random(1, 5)
     while not host and attempts > 0 do
         print(string.format("No host found, waiting %.2f seconds before trying again", wait))
-        os.sleep(wait)
+        sleep(wait)
         host = find_host(job, position, wait)
         attempts = attempts - 1
     end
