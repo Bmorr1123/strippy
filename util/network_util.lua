@@ -64,7 +64,6 @@ local function start_host(my_job, position)
         
         if dist < 10 and partners[partner.job] == nil then
             print("Found Partner!")
-            print(type(id))
             partners[partner.job] = id
             rednet.send(id, "true", protocol)
             count = count + 1
@@ -81,8 +80,8 @@ local function start_host(my_job, position)
     partners.protocol = new_protocol
 
     print("Found All Partners!")
+    print(textutils.serialize(partners))
     for job, partner in pairs(partners) do
-        print(type(partner))
         rednet.send(partner, textutils.serialize(partners), protocol)
     end
 
