@@ -57,6 +57,4 @@ local function main()
 end
 
 
-return {
-    main=main
-}
+main()

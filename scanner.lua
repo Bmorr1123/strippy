@@ -79,6 +79,4 @@ local function main(scan_radius)
 end
 
 
-return {
-    main=main
-}
+main()
