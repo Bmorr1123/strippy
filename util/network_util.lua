@@ -76,7 +76,7 @@ local function start_host(my_job, position)
 
     local new_protocol = protocol
     for job, id in pairs(partners) do
-        new_protocol = new_protocol + string.format(" %s %d", job, id)
+        new_protocol = new_protocol..string.format(" %s %d", job, id)
     end
     partners.protocol = new_protocol
 
