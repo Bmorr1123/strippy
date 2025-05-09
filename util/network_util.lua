@@ -30,12 +30,14 @@ local function find_host(my_job, position, timeout)
             return computer
         else
             print("Denied: ")
-            response = textutils.unserialize(response)
-            if type(response) == "table" and response["job"] and response["pos"] then
-                print("\tHost is not actually a host!")
-            else 
-                print(response)
-            end 
+            if response != nil
+                response = textutils.unserialize(response)
+                if type(response) == "table" and response["job"] and response["pos"] then
+                    print("\tHost is not actually a host!")
+                else 
+                    print(response)
+                end
+            end
         end
     end
     print("Could not find Host!")
