@@ -26,7 +26,7 @@ local function find_host(my_job, position, timeout)
         
         local id, response = rednet.receive(protocol, timeout)
         if id == computer and response == "true" then
-            print("Found Host!")
+            print(string.format("Found Host %03d!", id))
             return computer
         else
             print("Denied:", response)
@@ -163,6 +163,11 @@ local network_queue = {}
 local function receive_message(id, sub_protocol, timeout)
     sub_protocol = sub_protocol or protocol
     timeout = timeout or 3
+
+    if not id then
+        print("Cannot receive message without an id!")
+        return nil
+    end
 
     -- Setting up the initial signature value
     if not signatures[id] then
