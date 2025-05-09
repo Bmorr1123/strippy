@@ -21,21 +21,23 @@ local function find_host(my_job, position, timeout)
     }
 
     for _, computer in pairs(computers) do
-        print("Pinging "..computer)
-        rednet.send(computer, textutils.serialize(my_data), protocol)
-        
-        local id, response = rednet.receive(protocol, timeout)
-        if id == computer and response == "true" then
-            print("Found Host!")
-            return computer
-        else
-            print("Denied: ")
-            if response then
-                response = textutils.unserialize(response)
-                if type(response) == "table" and response["job"] and response["pos"] then
-                    print("\tHost is not actually a host!")
-                else 
-                    print(response)
+        if computer != os.computerID() then
+            print("Pinging "..computer)
+            rednet.send(computer, textutils.serialize(my_data), protocol)
+            
+            local id, response = rednet.receive(protocol, timeout)
+            if id == computer and response == "true" then
+                print("Found Host!")
+                return computer
+            else
+                print("Denied:", response)
+                if response then
+                    response = textutils.unserialize(response)
+                    if type(response) == "table" and response["job"] and response["pos"] then
+                        print("\tHost is not actually a host!")
+                    else 
+                        print(response)
+                    end
                 end
             end
         end
