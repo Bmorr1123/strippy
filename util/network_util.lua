@@ -48,7 +48,7 @@ local function start_host(my_job, position)
         local id, message = rednet.receive(protocol)
         local partner = textutils.unserialize(message)
 
-        print("Just received request from:", id, "\nWho is a:", partner.job, "\nWho is at:", partner.pos)
+        print("Just received request from:", id, "\n\tWho is a:", partner.job, "\n\tWho is at:", unpack(partner.pos))
 
         local dist = partner.pos.x - position.x + partner.pos.y - position.y + partner.pos.z - position.z
 
