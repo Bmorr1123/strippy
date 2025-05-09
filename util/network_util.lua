@@ -21,7 +21,7 @@ local function find_host(my_job, position, timeout)
     }
 
     for _, computer in pairs(computers) do
-        if computer != os.computerID() then
+        if computer ~= os.computerID() then
             print("Pinging "..computer)
             rednet.send(computer, textutils.serialize(my_data), protocol)
             
