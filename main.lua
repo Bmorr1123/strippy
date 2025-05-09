@@ -19,7 +19,7 @@ function check_peripherals()
     local peripheral_combinations = {
         ["miner"]={"modem", nil},
         ["scanner"]={"modem", "geoScanner"},
-        ["loader"]={"modem", "chunky"}
+        ["chunker"]={"modem", "chunky"}
     }
 
     local left, right = peripheral.getType("left"), peripheral.getType("right")
@@ -45,9 +45,13 @@ function main()
         return
     end
     sleep(3)
-    -- if job == "miner" then
-    --     shell.run("miner.lua")
-    -- end
+    if job == "miner" then
+        shell.run("miner.lua")
+    elseif job == "scanner" then
+        shell.run("scanner.lua")
+    elseif job == "chunker" then
+        shell.run("chunker.lua")
+    end
 
 end
 
