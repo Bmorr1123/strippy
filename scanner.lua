@@ -3,9 +3,10 @@
 ]]
 -- package.path = package.path .. ";../util/?.lua"
 
-mapping = require("mapping")
-net = require("network_util")
-movement = require("movement_util")
+mapping = require("util/mapping")
+net = require("util/network_util")
+movement = require("util/movement_util")
+
 
 local world = mapping.World.new("world", 16) 
 local scanner = peripheral.find("geoScanner")

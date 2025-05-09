@@ -1,6 +1,5 @@
 --[[
-    pastebin get PFC9cjHM network_util
-    lua
+    pastebin get PFC9cjHM network_util.lua
     net = require("network_util.lua")
     net.example()
 ]]
